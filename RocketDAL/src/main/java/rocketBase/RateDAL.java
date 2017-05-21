@@ -20,21 +20,16 @@ public class RateDAL {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		
-		ArrayList<RateDomainModel> alRates = new ArrayList<RateDomainModel>();		
+		ArrayList<RateDomainModel> Array = new ArrayList<RateDomainModel>();		
 		
 		try {
 			tx = session.beginTransaction();	
 			
-			//TODO - RocketDALRateDAL.getAllRates
-			//			probably not a bad idea to sort the results...  Add an OrderBy
-			//			example can be found here:
-			//  		http://www.tutorialspoint.com/hibernate/hibernate_query_language.htm			
-			//List lstRates = session.createQuery("FROM RateDomainModel r Order By r.iMinCreditScore").list();
-			List lstRates = session.createQuery("FROM RateDomainModel").list();
+			List lstRates = session.createQuery("FROM RateDomainModel r Order By r.iMinCreditScore").list();
 
 			for (Iterator iterator = lstRates.iterator(); iterator.hasNext();) {
 				RateDomainModel rte = (RateDomainModel) iterator.next();
-				alRates.add(rte);
+				Array.add(rte);
 			}
 			
 			tx.commit();
@@ -45,7 +40,7 @@ public class RateDAL {
 		} finally {
 			session.close();
 		}
-		return alRates;
+		return Array;
 	}
 
 }
